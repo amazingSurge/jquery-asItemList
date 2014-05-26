@@ -24,12 +24,7 @@
                             '<ul class="namespace-list"></ul>' +
                         '</div>';
             },
-            render: function(item) {
-                return '<i class="fa ' + item.title + '"></i>' +
-                        '<span>' + item.name + '</span>';
-            },
-            addItem: function() {},
-            itemEdit: function() {},
+            render: function(item) {},
             process: function(value) {
                 if (value) {
                     return JSON.stringify(value);
@@ -47,6 +42,8 @@
             // callback
             onInit: null,
             onReady: null,
+            onAdd: null,
+            onEdit: null,
             onAfterFill: null
         };
 
@@ -105,12 +102,12 @@
             this._getList();
 
             this.$addItem.on('click', function() {
-                self.options.addItem();
+                self._trigger('add');
             });
 
             var list = document.getElementById(this.options.sortableID);
             this.$list.on('click', 'li', $.proxy(function(e) {
-                this.options.itemEdit();
+                this._trigger('edit', e.currentTarget);
             }, this)).on('mouseenter', 'li', $.proxy(function(e) {
                 $(e.currentTarget).addClass(this.classes.hover);
             }, this)).on('mouseleave', 'li', $.proxy(function(e) {
@@ -118,13 +115,7 @@
             }, this)).on('mouseenter', '.' + this.namespace + '-drag', $.proxy(function(e) {
                 this.sort = new Sortable(list, {
                     onUpdate: function(evt) {
-                        var title = $(evt.item).data('class');
-                        for (var i = 0, item; item = self.value[i]; i++) {
-                            if (title === item.title) {
-                                var index = i;
-                                continue;
-                            }
-                        }
+                        var index = $(evt.item).data('index');
                         var value = self.value.splice(index,1);
                         self.value.splice($(evt.item).index(), 0, value[0]);
                         self.$element.val(self.options.process(self.value));
@@ -149,12 +140,12 @@
             // show list
             if (this.value.length > 0) {
                 this.$list.html('');
-                this.showList();
+                this._showList();
             }else {
                 this.$list.html('<li>There is no item</li>');
             }
         },
-        showList: function() {
+        _showList: function() {
             var self = this;
             if(typeof this.$list.data('scroll') !=='undefined'){
                 this.$list.asScrollable('destory');
@@ -165,7 +156,7 @@
                     html:   '<span class="' + this.namespace + '-drag"></span>' +
                             '<div class="' + this.namespace + '-item">' + this.options.render(item) + '</div>' +
                             '<a href="#" class="' + this.namespace + '-delete"></a>',
-                }).data('class', item.title).appendTo(this.$list);
+                }).data('index', i).appendTo(this.$list);
             }
         },
         _trigger: function(eventType) {
@@ -187,21 +178,20 @@
             this.$element.val(this.options.process(this.value));
             this._getList();
         },
-        update: function(value) {
+        add: function(value) {
             value = this.options.parse(value);
-            value.name = value.name.replace(/\b\w+\b/g, function(word) {
-                return word.substring(0, 1).toUpperCase() + word.substring(1);
-            });
-
             this.value.push(value);
             this.$element.val(this.options.process(this.value));
+            this._getList();
+        },
+        update: function(value) {
             this._getList();
         },
         get: function() {
             var current = this.$element.val();
 
             if (this.value.length === 0) {
-                current = 'None';
+                current = null;
             }
 
             return current;
