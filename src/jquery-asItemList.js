@@ -161,8 +161,8 @@
         },
         _trigger: function(eventType) {
             // event
-            this.$element.trigger('asUnitInput::' + eventType, this);
-            this.$element.trigger(eventType + '.asUnitInput', this);
+            this.$element.trigger('asItemList::' + eventType, this);
+            this.$element.trigger(eventType + '.asItemList', this);
 
             // callback
             eventType = eventType.replace(/\b\w+\b/g, function(word) {
