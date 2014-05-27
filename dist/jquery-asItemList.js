@@ -1,4 +1,4 @@
-/*! asItemList - v0.1.0 - 2014-05-26
+/*! asItemList - v0.1.0 - 2014-05-27
 * https://github.com/amazingsurge/jquery-asItemList
 * Copyright (c) 2014 amazingSurge; Licensed MIT */
 (function($, document, window, undefined) {
@@ -156,7 +156,8 @@
         },
         _trigger: function(eventType) {
             // event
-            this.$element.trigger(pluginName + '::' + eventType, this);
+            this.$element.trigger('asUnitInput::' + eventType, this);
+            this.$element.trigger(eventType + '.asUnitInput', this);
 
             // callback
             eventType = eventType.replace(/\b\w+\b/g, function(word) {
