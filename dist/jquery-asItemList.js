@@ -1,28 +1,32 @@
-/*! asItemList - v0.1.0 - 2014-05-27
+/*! asItemList - v0.1.0 - 2014-07-04
 * https://github.com/amazingsurge/jquery-asItemList
 * Copyright (c) 2014 amazingSurge; Licensed MIT */
-(function($, document, window, undefined) {
+(function(window, document, $, Sortable, undefined) {
     // Optional, but considered best practice by some
     "use strict";
 
     var pluginName = 'asItemList',
         defaults = {
-            namespace:    'asItemList',
-            name:         null,
-            sortableID:   'asItemList-sortable',
+            namespace: 'asItemList',
+            sortableID: 'asItemList-sortable',
 
             itemList: function() {
-                return  '<div class="namespace-container">' +
-                            '<a class="namespace-addItem">' +
-                                '<i></i>Add new list' +
-                            '</a>' +
-                            '<ul class="namespace-list"></ul>' +
-                        '</div>';
+                return '<div class="namespace-container">' +
+                    '<a class="namespace-addItem">' +
+                    '<i></i>Add new list' +
+                    '</a>' +
+                    '<ul class="namespace-list"></ul>' +
+                    '</div>';
             },
             render: function(item) {},
             process: function(value) {
                 if (value) {
-                    return JSON.stringify(value);
+                    var string = JSON.stringify(value);
+                    if (string === '[]') {
+                        return '';
+                    } else {
+                        return string;
+                    }
                 } else {
                     return '';
                 }
@@ -45,12 +49,6 @@
     var Plugin = $[pluginName] = function(element, options) {
         this.element = element;
         this.$element = $(element);
-
-        if (this.$element.attr('name')) {
-            this.name = this.$element.attr('name');
-        }else {
-            this.name = options.name;
-        }
 
         this.options = $.extend({}, defaults, options, this.$element.data());
 
@@ -93,8 +91,10 @@
             // And the list after the select
             this.$element.before(this.$itemList);
 
-            // get value
-            this._getList();
+            // set value
+            this.value = this.options.parse(this.$element.val());
+            this.set(this.value, false);
+            this._updateList();
 
             this.$addItem.on('click', function() {
                 self._trigger('add');
@@ -102,7 +102,7 @@
 
             var list = document.getElementById(this.options.sortableID);
             this.$list.on('click', 'li', $.proxy(function(e) {
-                this._trigger('edit', e.currentTarget);
+                this._trigger('edit', $(e.currentTarget).data('index'));
             }, this)).on('mouseenter', 'li', $.proxy(function(e) {
                 $(e.currentTarget).addClass(this.classes.hover);
             }, this)).on('mouseleave', 'li', $.proxy(function(e) {
@@ -111,7 +111,7 @@
                 this.sort = new Sortable(list, {
                     onUpdate: function(evt) {
                         var index = $(evt.item).data('index');
-                        var value = self.value.splice(index,1);
+                        var value = self.value.splice(index, 1);
                         self.value.splice($(evt.item).index(), 0, value[0]);
                         self.$element.val(self.options.process(self.value));
                         self.sort.destroy();
@@ -119,38 +119,34 @@
                 });
             }, this)).on('mouseleave', '.' + this.namespace + '-drag', $.proxy(function(e) {
                 this.sort.destroy();
-            }, this)).on('click', '.' + this.namespace + '-delete', $.proxy(function(e) {
-                this.delete($(e.currentTarget).parent().index());
+            }, this)).on('click', '.' + this.namespace + '-remove', $.proxy(function(e) {
+                this.remove($(e.currentTarget).parent().index());
                 return false;
             }, this));
         },
-        _getList: function() {
-            var value = this.$element.val();
-            if (value) {
-                this.value = this.options.parse(value);
-            } else {
-                this.value = {};
-            }
+        _update: function() {
+            this._updateList();
 
-            // show list
+            this.$element.val(this.val());
+            this._trigger('change', this.val());
+        },
+        _updateList: function() {
             if (this.value.length > 0) {
                 this.$list.html('');
                 this._showList();
-            }else {
+            } else {
                 this.$list.html('<li>There is no item</li>');
             }
         },
         _showList: function() {
-            var self = this;
-            if(typeof this.$list.data('scroll') !=='undefined'){
+            if (typeof this.$list.data('scroll') !== 'undefined') {
                 this.$list.asScrollable('destory');
             }
 
-            for (var i = 0, item; item = this.value[i]; i++) {
+            for (var i = 0, item; i < this.value.length; i++) {
+                item = this.value[i]
                 $('<li/>', {
-                    html:   '<span class="' + this.namespace + '-drag"></span>' +
-                            '<div class="' + this.namespace + '-item">' + this.options.render(item) + '</div>' +
-                            '<a href="#" class="' + this.namespace + '-delete"></a>',
+                    html: '<span class="' + this.namespace + '-drag"></span>' + '<div class="' + this.namespace + '-item">' + this.options.render(item) + '</div>' + '<a href="#" class="' + this.namespace + '-remove"></a>'
                 }).data('index', i).appendTo(this.$list);
             }
         },
@@ -169,35 +165,55 @@
                 this.options[onFunction].apply(this, method_arguments);
             }
         },
-        delete: function(index) {
-            this.value.splice(index, 1);
-            this.$element.val(this.options.process(this.value));
-            this._getList();
-        },
-        add: function(value) {
-            value = this.options.parse(value);
-            this.value.push(value);
-            this.$element.val(this.options.process(this.value));
-            this._getList();
-        },
-        update: function(value) {
-            this._getList();
-        },
-        get: function() {
-            var current = this.$element.val();
-
-            if (this.value.length === 0) {
-                current = null;
+        val: function(value) {
+            if (typeof value === 'undefined') {
+                return this.options.process(this.value);
             }
 
-            return current;
+            var value_obj = this.options.parse(value);
+
+            if (value_obj) {
+                this.set(value_obj);
+            } else {
+                this.clear();
+            }
+        },
+        set: function(value, update) {
+            if ($.isArray(value)) {
+                this.value = value;
+            } else {
+                this.value = [];
+            }
+
+            if (update !== false) {
+                this._update();
+            }
+        },
+        clear: function() {
+            this.value = [];
+
+            this._update();
+        },
+        remove: function(index) {
+            this.value.splice(index, 1);
+
+            this._update();
+        },
+        add: function(item) {
+            this.value.push(item);
+
+            this._update();
+        },
+        update: function(index, item) {
+            this.value[index] = item;
+
+            this._update();
         },
         enable: function() {
             this.disabled = false;
 
             // which element is up to your requirement
             this.$wrapper.removeClass(this.classes.disabled);
-
             // here maybe have some events detached
         },
         disable: function() {
@@ -205,8 +221,6 @@
             // which element is up to your requirement
             // .disabled { pointer-events: none; } NO SUPPORT IE11 BELOW
             this.$wrapper.addClass(this.classes.disabled);
-
-            // here maybe have some events attached
         },
         destory: function() {
             // detached events first
@@ -246,4 +260,12 @@
             });
         }
     };
-})(jQuery, document, window);
+})(window, document, jQuery, (function() {
+    "use strict";
+    if (Sortable === undefined) {
+        // console.info('lost dependency lib of Sortable , please load it first !');
+        return false;
+    } else {
+        return Sortable;
+    }
+}()));

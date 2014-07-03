@@ -15,7 +15,6 @@
   text-transform: none;
   line-height: 1;
   /* Better Font Rendering =========== */
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -164,7 +163,6 @@
   line-height: 1;
   cursor: pointer;
   /* Better Font Rendering =========== */
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -207,7 +205,6 @@
   vertical-align: middle;
   cursor: move;
   /* Better Font Rendering =========== */
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -230,7 +227,7 @@
 .asItemList-list li .asItemList-item > span {
   color: #687175;
 }
-.asItemList-list li .asItemList-delete {
+.asItemList-list li .asItemList-remove {
   position: absolute;
   top: 0;
   right: 0;
@@ -248,17 +245,16 @@
   text-decoration: none;
   line-height: 60px;
   /* Better Font Rendering =========== */
-
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.asItemList-list li .asItemList-delete:before {
+.asItemList-list li .asItemList-remove:before {
   content: "\e627";
 }
 .asItemList-list li.asItemList_hover {
   background-color: #f3f5f7;
 }
-.asItemList-list li.asItemList_hover .asItemList-delete {
+.asItemList-list li.asItemList_hover .asItemList-remove {
   display: inline-block;
 }
 .asItemList-back,

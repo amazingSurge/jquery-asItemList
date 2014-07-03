@@ -40,7 +40,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onAdd:&nbsp;function()&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;value&nbsp;=&nbsp;'{&quot;icon&quot;:&nbsp;&quot;fa-heart&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Heart&quot;}';
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('&lt;button&nbsp;id=&quot;api-addItem-click&quot;&gt;addItem&lt;/button&gt;').prependTo($(&quot;#api-get-click&quot;).parent());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('&lt;button&nbsp;id=&quot;api-addItem-click&quot;&gt;addItem&lt;/button&gt;').prependTo($(&quot;#api-val-click&quot;).parent());
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-addItem-click').val(value);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-addItem-click').click(function()&nbsp;{
@@ -62,9 +62,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-get-click').click(function()&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;html&nbsp;=&nbsp;'&lt;div&gt;The&nbsp;list&nbsp;is&nbsp;&quot;'&nbsp;+&nbsp;$('.default').asItemList('get')&nbsp;+&nbsp;'&quot;&lt;/div&gt;';
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(html).prependTo($('#api-get-info'));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-val-click').click(function()&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;html&nbsp;=&nbsp;'&lt;div&gt;The&nbsp;list&nbsp;is&nbsp;&quot;'&nbsp;+&nbsp;$('.default').asItemList('val')&nbsp;+&nbsp;'&quot;&lt;/div&gt;';
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(html).prependTo($('#api-val-info'));
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;});
@@ -72,9 +72,9 @@
                 <div class="example">
                     <input type="text" class="default" value='[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}]' name="default"/>
                     
-                    <button id="api-get-click">getIcon</button>
+                    <button id="api-val-click">getIcon</button>
                 </div>
-                <div class="example" id="api-get-info"></div>
+                <div class="example" id="api-val-info"></div>
             </section>
             <section>
                 <div id="toc3"></div>
@@ -90,7 +90,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;onAdd:&nbsp;function()&nbsp;{
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;value&nbsp;=&nbsp;'{&quot;icon&quot;:&nbsp;&quot;fa-heart&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Heart&quot;}';
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('&lt;button&nbsp;id=&quot;api-addItem2-click&quot;&gt;addItem2&lt;/button&gt;').prependTo($(&quot;#api-get-click&quot;).parent());
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('&lt;button&nbsp;id=&quot;api-addItem2-click&quot;&gt;addItem2&lt;/button&gt;').prependTo($(&quot;#api-val-click&quot;).parent());
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-addItem2-click').val(value);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-addItem2-click').click(function()&nbsp;{
@@ -112,9 +112,9 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-get-click').click(function()&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;html&nbsp;=&nbsp;'&lt;div&gt;The&nbsp;list&nbsp;is&nbsp;&quot;'&nbsp;+&nbsp;$('.textarea').asItemList('get')&nbsp;+&nbsp;'&quot;&lt;/div&gt;';
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(html).prependTo($('#api-get-info'));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-val-click').click(function()&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;html&nbsp;=&nbsp;'&lt;div&gt;The&nbsp;list&nbsp;is&nbsp;&quot;'&nbsp;+&nbsp;$('.textarea').asItemList('val')&nbsp;+&nbsp;'&quot;&lt;/div&gt;';
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(html).prependTo($('#api-val-info'));
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;});
@@ -122,9 +122,9 @@
                 <div class="example">
                     <textarea class="textarea">[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}, {"icon": "fa-caret-down", "title": "caret-down"}, {"icon": "fa-caret-up", "title": "caret-up"}, {"icon": "fa-caret-right", "title": "caret-right"}, {"icon": "fa-caret-left", "title": "caret-left"}]</textarea>
                     
-                    <button id="api-get2-click">getIcon</button>
+                    <button id="api-val2-click">getIcon</button>
                 </div>
-                <div class="example" id="api-get2-info"></div>
+                <div class="example" id="api-val2-info"></div>
             </section>
         </section>
     </div> 
@@ -145,32 +145,24 @@
                             '<span>' + item.title + '</span>';
                 },
                 onAdd: function() {
-                    var value = '{"icon": "fa-heart", "title": "Heart"}';
-                    $('<button id="api-addItem-click">addItem</button>').prependTo($("#api-get-click").parent());
-                    $('#api-addItem-click').val(value);
+                    var value = {"icon": "fa-heart", "title": "Heart"};
+                    $('<button id="api-addItem-click">addItem</button>').prependTo($("#api-val-click").parent());
                     
                     $('#api-addItem-click').click(function() {
-                        var value = $(this).val();
                         $('.default').asItemList('add', value);
                         $('#api-addItem-click').remove();
                     });
                 },
-                onEdit: function(evt) {
-                    var edit = '{"icon": "fa-heart", "title": "Heart"}',
-                        value = $('.default').val(),
-                        index = $(evt).data('index');
+                onEdit: function(index) {
+                    var edit = {"icon": "fa-heart", "title": "Heart"};
 
-                    edit = $.parseJSON(edit);
-                    value = $.parseJSON(value);
-                    value[index] = edit;
-                    $('.default').val(JSON.stringify(value));
-                    $('.default').asItemList('update')
+                    $('.default').asItemList('update', index, edit);
                 }
             });
             
-            $('#api-get-click').click(function() {
-                var html = '<div>The list is "' + $('.default').asItemList('get') + '"</div>';
-                $(html).prependTo($('#api-get-info'));
+            $('#api-val-click').click(function() {
+                var html = '<div>The list is "' + $('.default').asItemList('val') + '"</div>';
+                $(html).prependTo($('#api-val-info'));
                 return false;
             });
             $('.textarea').asItemList({
@@ -180,32 +172,24 @@
                             '<span>' + item.title + '</span>';
                 },
                 onAdd: function() {
-                    var value = '{"icon": "fa-heart", "title": "Heart"}';
-                    $('<button id="api-addItem2-click">addItem</button>').prependTo($("#api-get2-click").parent());
-                    $('#api-addItem2-click').val(value);
+                    var value = {"icon": "fa-heart", "title": "Heart"};
+                    $('<button id="api-addItem2-click">addItem</button>').prependTo($("#api-val2-click").parent());
                     
                     $('#api-addItem2-click').click(function() {
-                        var value = $(this).val();
                         $('.textarea').asItemList('add', value);
                         $('#api-addItem2-click').remove();
                     });
                 },
-                onEdit: function(evt) {
-                    var edit = '{"icon": "fa-heart", "title": "Heart"}',
-                        value = $('.textarea').val(),
-                        index = $(evt).data('index');
-
-                    edit = $.parseJSON(edit);
-                    value = $.parseJSON(value);
-                    value[index] = edit;
-                    $('.textarea').val(JSON.stringify(value));
-                    $('.textarea').asItemList('update')
+                onEdit: function(index) {
+                    var edit = {"icon": "fa-heart", "title": "Heart"};
+  
+                    $('.textarea').asItemList('update', index, edit);
                 }
             });
 
-            $('#api-get2-click').click(function() {
-                var html = '<div>The list is "' + $('.textarea').asItemList('get') + '"</div>';
-                $(html).prependTo($('#api-get2-info'));
+            $('#api-val2-click').click(function() {
+                var html = '<div>The list is "' + $('.textarea').asItemList('val') + '"</div>';
+                $(html).prependTo($('#api-val2-info'));
                 return false;
             });
         });
