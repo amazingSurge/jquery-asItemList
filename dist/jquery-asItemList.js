@@ -1,4 +1,4 @@
-/*! asItemList - v0.1.0 - 2014-07-04
+/*! asItemList - v0.1.0 - 2014-07-08
 * https://github.com/amazingsurge/jquery-asItemList
 * Copyright (c) 2014 amazingSurge; Licensed MIT */
 (function(window, document, $, Sortable, undefined) {
@@ -9,13 +9,15 @@
         defaults = {
             namespace: 'asItemList',
             sortableID: 'asItemList-sortable',
+            leng: 'en',
 
             itemList: function() {
                 return '<div class="namespace-container">' +
                     '<a class="namespace-addItem">' +
-                    '<i></i>Add new list' +
+                    '<i></i>{{strings.addTitle}}' +
                     '</a>' +
                     '<ul class="namespace-list"></ul>' +
+                    '<div class="namespace-prompt">{{strings.prompt}}</div>' +
                     '</div>';
             },
             render: function(item) {},
@@ -52,6 +54,14 @@
 
         this.options = $.extend({}, defaults, options, this.$element.data());
 
+        // load lang strings
+        if (typeof Plugin.Strings[this.options.lang] === 'undefined') {
+            this.lang = 'en';
+        } else {
+            this.lang = this.options.lang;
+        }
+        this.strings = $.extend({}, Plugin.Strings[this.lang], this.options.strings);
+
         this._plugin = pluginName;
         this.namespace = this.options.namespace;
 
@@ -59,6 +69,7 @@
             disabled: this.namespace + '_disabled',
             wrapper: this.namespace + '-wrapper',
             active: this.namespace + '_active',
+            empty: this.namespace + '_empty',
             hide: this.namespace + '_hide',
             hover: this.namespace + '_hover'
         };
@@ -67,8 +78,10 @@
         this.$element.wrap('<div class="' + this.classes.wrapper + '"></div>');
         this.$wrapper = this.$element.parent();
 
-        this.$itemList = $(this.options.itemList().replace(/namespace/g, this.namespace));
+        this.$itemList = $(this.options.itemList().replace(/namespace/g, this.namespace)
+            .replace(/\{\{strings.addTitle\}\}/g, this.strings.addTitle).replace(/\{\{strings.prompt\}\}/g, this.strings.prompt));
         this.$addItem = this.$itemList.find('.' + this.namespace + '-addItem');
+        this.$prompt = this.$itemList.find('.' + this.namespace + '-prompt');
         this.$list = this.$itemList.find('.' + this.namespace + '-list');
         this.$list.attr('id', this.options.sortableID);
 
@@ -102,25 +115,27 @@
 
             var list = document.getElementById(this.options.sortableID);
             this.$list.on('click', 'li', $.proxy(function(e) {
-                this._trigger('edit', $(e.currentTarget).data('index'));
+                this.editIndex = $(e.currentTarget).index();
+                this._trigger('edit', this.editIndex);
             }, this)).on('mouseenter', 'li', $.proxy(function(e) {
                 $(e.currentTarget).addClass(this.classes.hover);
             }, this)).on('mouseleave', 'li', $.proxy(function(e) {
                 $(e.currentTarget).removeClass(this.classes.hover);
-            }, this)).on('mouseenter', '.' + this.namespace + '-drag', $.proxy(function(e) {
+            }, this)).on('mouseenter', '.' + this.namespace + '-list-drag', $.proxy(function(e) {
+                this.sortIndex = $(e.currentTarget).parent().index();
                 this.sort = new Sortable(list, {
                     onUpdate: function(evt) {
-                        var index = $(evt.item).data('index');
-                        var value = self.value.splice(index, 1);
+                        var value = self.value.splice(self.sortIndex, 1);
                         self.value.splice($(evt.item).index(), 0, value[0]);
                         self.$element.val(self.options.process(self.value));
                         self.sort.destroy();
                     }
                 });
-            }, this)).on('mouseleave', '.' + this.namespace + '-drag', $.proxy(function(e) {
+            }, this)).on('mouseleave', '.' + this.namespace + '-list-drag', $.proxy(function(e) {
                 this.sort.destroy();
-            }, this)).on('click', '.' + this.namespace + '-remove', $.proxy(function(e) {
-                this.remove($(e.currentTarget).parent().index());
+            }, this)).on('click', '.' + this.namespace + '-list-remove', $.proxy(function(e) {
+                this.indexed = $(e.currentTarget).parent().index();
+                this.remove(this.indexed);
                 return false;
             }, this));
         },
@@ -131,24 +146,38 @@
             this._trigger('change', this.val());
         },
         _updateList: function() {
-            if (this.value.length > 0) {
-                this.$list.html('');
-                this._showList();
-            } else {
-                this.$list.html('<li>There is no item</li>');
-            }
-        },
-        _showList: function() {
             if (typeof this.$list.data('scroll') !== 'undefined') {
                 this.$list.asScrollable('destory');
             }
 
-            for (var i = 0, item; i < this.value.length; i++) {
-                item = this.value[i]
-                $('<li/>', {
-                    html: '<span class="' + this.namespace + '-drag"></span>' + '<div class="' + this.namespace + '-item">' + this.options.render(item) + '</div>' + '<a href="#" class="' + this.namespace + '-remove"></a>'
-                }).data('index', i).appendTo(this.$list);
+            if (this.value.length > this.$list.children().length) {
+                this._addList();
+            } else if (this.value.length === this.$list.children().length && this.value.length !== 0) {
+                var item = this.value[this.editIndex];
+                this.$list.children().eq(this.editIndex).html(this._editList(item));
+            } else {
+                if (this.value.length === 0) {
+                    this.$list.html('');
+                    this.$wrapper.addClass(this.classes.empty);
+                } else {
+                    this._delList();
+                }
             }
+        },
+        _editList: function(item) {
+            return '<span class="' + this.namespace + '-list-drag"></span>' + '<div class="' + this.namespace + '-list-item">' + this.options.render(item) + '</div>' + '<a href="#" class="' + this.namespace + '-list-remove"></a>';
+        },
+        _addList: function() {
+            this.$wrapper.removeClass(this.classes.empty);
+            for (var i = this.$list.children().length, item; i < this.value.length; i++) {
+                item = this.value[i];
+                $('<li/>', {
+                    html: this._editList(item)
+                }).appendTo(this.$list);
+            }
+        },
+        _delList: function() {
+            this.$list.children().eq(this.indexed).remove();
         },
         _trigger: function(eventType) {
             // event
@@ -231,6 +260,17 @@
     };
 
     Plugin.defaults = defaults;
+
+    Plugin.Strings = {};
+
+    Plugin.localize = function(lang, label) {
+        Plugin.Strings[lang] = label;
+    };
+
+    Plugin.localize('en', {
+        addTitle: 'Add new list',
+        prompt: 'There is no item'
+    });
 
     $.fn[pluginName] = function(options) {
         if (typeof options === 'string') {

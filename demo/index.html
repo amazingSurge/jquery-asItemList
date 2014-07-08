@@ -161,8 +161,9 @@
             });
             
             $('#api-val-click').click(function() {
-                var html = '<div>The list is "' + $('.default').asItemList('val') + '"</div>';
-                $(html).prependTo($('#api-val-info'));
+                $('.default').asItemList('clear')
+                // var html = '<div>The list is "' + $('.default').asItemList('val') + '"</div>';
+                // $(html).prependTo($('#api-val-info'));
                 return false;
             });
             $('.textarea').asItemList({
