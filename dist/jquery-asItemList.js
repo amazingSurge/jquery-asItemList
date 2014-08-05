@@ -1,4 +1,4 @@
-/*! asItemList - v0.1.0 - 2014-07-08
+/*! asItemList - v0.1.0 - 2014-08-06
 * https://github.com/amazingsurge/jquery-asItemList
 * Copyright (c) 2014 amazingSurge; Licensed MIT */
 (function(window, document, $, Sortable, undefined) {
@@ -20,7 +20,9 @@
                     '<div class="namespace-prompt">{{strings.prompt}}</div>' +
                     '</div>';
             },
-            render: function(item) {},
+            render: function(item) {
+                return item;
+            },
             process: function(value) {
                 if (value) {
                     var string = JSON.stringify(value);
@@ -107,7 +109,6 @@
             // set value
             this.value = this.options.parse(this.$element.val());
             this.set(this.value, false);
-            this._updateList();
 
             this.$addItem.on('click', function() {
                 self._trigger('add');
@@ -131,7 +132,7 @@
                         self.sort.destroy();
                     }
                 });
-            }, this)).on('mouseleave', '.' + this.namespace + '-list-drag', $.proxy(function(e) {
+            }, this)).on('mouseleave', '.' + this.namespace + '-list-drag', $.proxy(function() {
                 this.sort.destroy();
             }, this)).on('click', '.' + this.namespace + '-list-remove', $.proxy(function(e) {
                 this.indexed = $(e.currentTarget).parent().index();
@@ -140,16 +141,10 @@
             }, this));
         },
         _update: function() {
-            this._updateList();
-
             this.$element.val(this.val());
             this._trigger('change', this.val());
         },
         _updateList: function() {
-            if (typeof this.$list.data('scroll') !== 'undefined') {
-                this.$list.asScrollable('destory');
-            }
-
             if (this.value.length > this.$list.children().length) {
                 this._addList();
             } else if (this.value.length === this.$list.children().length && this.value.length !== 0) {
@@ -214,29 +209,50 @@
                 this.value = [];
             }
 
+            this._updateList();
+
             if (update !== false) {
                 this._update();
             }
         },
-        clear: function() {
+        clear: function(update) {
             this.value = [];
 
-            this._update();
+            this._updateList();
+
+            if (update !== false) {
+                this._update();
+            }
         },
-        remove: function(index) {
+        remove: function(index, update) {
             this.value.splice(index, 1);
 
-            this._update();
+            this._updateList();
+
+            if (update !== false) {
+                this._update();
+            }
         },
-        add: function(item) {
+        add: function(item, update) {
             this.value.push(item);
 
-            this._update();
+            this._updateList();
+
+            if (update !== false) {
+                this._update();
+            }
         },
-        update: function(index, item) {
+        update: function(index, item, update) {
             this.value[index] = item;
 
-            this._update();
+            this._updateList();
+
+            if (update !== false) {
+                this._update();
+            }
+        },
+        get: function() {
+            return this.value;
         },
         enable: function() {
             this.disabled = false;

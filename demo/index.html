@@ -62,9 +62,8 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-val-click').click(function()&nbsp;{
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;html&nbsp;=&nbsp;'&lt;div&gt;The&nbsp;list&nbsp;is&nbsp;&quot;'&nbsp;+&nbsp;$('.default').asItemList('val')&nbsp;+&nbsp;'&quot;&lt;/div&gt;';
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$(html).prependTo($('#api-val-info'));
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('#api-clear-click').click(function()&nbsp;{
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('.default').asItemList('clear');
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;false;
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;});
@@ -72,9 +71,8 @@
                 <div class="example">
                     <input type="text" class="default" value='[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}]' name="default"/>
                     
-                    <button id="api-val-click">getIcon</button>
+                    <button id="api-clear-click">clear</button>
                 </div>
-                <div class="example" id="api-val-info"></div>
             </section>
             <section>
                 <div id="toc3"></div>
@@ -160,10 +158,8 @@
                 }
             });
             
-            $('#api-val-click').click(function() {
-                $('.default').asItemList('clear')
-                // var html = '<div>The list is "' + $('.default').asItemList('val') + '"</div>';
-                // $(html).prependTo($('#api-val-info'));
+            $('#api-clear-click').click(function() {
+                $('.default').asItemList('clear');
                 return false;
             });
             $('.textarea').asItemList({
