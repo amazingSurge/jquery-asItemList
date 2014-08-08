@@ -1,4 +1,4 @@
-/*! asItemList - v0.1.0 - 2014-08-06
+/*! asItemList - v0.1.0 - 2014-08-08
 * https://github.com/amazingsurge/jquery-asItemList
 * Copyright (c) 2014 amazingSurge; Licensed MIT */
 (function(window, document, $, Sortable, undefined) {
@@ -152,11 +152,9 @@
                 this.$list.children().eq(this.editIndex).html(this._editList(item));
             } else {
                 if (this.value.length === 0) {
-                    this.$list.html('');
                     this.$wrapper.addClass(this.classes.empty);
-                } else {
-                    this._delList();
                 }
+                this._delList();
             }
         },
         _editList: function(item) {
@@ -173,6 +171,9 @@
         },
         _delList: function() {
             this.$list.children().eq(this.indexed).remove();
+        },
+        _clearList: function() {
+            this.$list.children().remove();
         },
         _trigger: function(eventType) {
             // event
@@ -209,6 +210,7 @@
                 this.value = [];
             }
 
+            this._clearList();
             this._updateList();
 
             if (update !== false) {
@@ -218,7 +220,8 @@
         clear: function(update) {
             this.value = [];
 
-            this._updateList();
+            this._clearList();
+            this.$wrapper.addClass(this.classes.empty);
 
             if (update !== false) {
                 this._update();
@@ -234,7 +237,9 @@
             }
         },
         add: function(item, update) {
-            this.value.push(item);
+            for (var key in item) {
+                this.value.push(item[key]);
+            }
 
             this._updateList();
 

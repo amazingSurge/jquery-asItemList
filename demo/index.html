@@ -69,7 +69,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;});
 &lt;/script&gt;</code></pre>
                 <div class="example">
-                    <input type="text" class="default" value='[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}]' name="default"/>
+                    <input type="text" class="default"  name="default"/>
                     
                     <button id="api-clear-click">clear</button>
                 </div>
@@ -143,8 +143,8 @@
                             '<span>' + item.title + '</span>';
                 },
                 onAdd: function() {
-                    var value = {"icon": "fa-heart", "title": "Heart"};
-                    $('<button id="api-addItem-click">addItem</button>').prependTo($("#api-val-click").parent());
+                    var value = [{"icon": "fa-heart", "title": "Heart"},{"icon": "fa-user", "title": "User"}];
+                    $('<button id="api-addItem-click">addItem</button>').prependTo($("#api-clear-click").parent());
                     
                     $('#api-addItem-click').click(function() {
                         $('.default').asItemList('add', value);
@@ -169,7 +169,7 @@
                             '<span>' + item.title + '</span>';
                 },
                 onAdd: function() {
-                    var value = {"icon": "fa-heart", "title": "Heart"};
+                    var value = [{"icon": "fa-heart", "title": "Heart"}];
                     $('<button id="api-addItem2-click">addItem</button>').prependTo($("#api-val2-click").parent());
                     
                     $('#api-addItem2-click').click(function() {
