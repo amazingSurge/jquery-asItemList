@@ -1,4 +1,4 @@
-/*! asItemList - v0.1.0 - 2014-08-08
+/*! asItemList - v0.1.0 - 2014-08-18
 * https://github.com/amazingsurge/jquery-asItemList
 * Copyright (c) 2014 amazingSurge; Licensed MIT */
 (function(window, document, $, Sortable, undefined) {
@@ -142,7 +142,7 @@
         },
         _update: function() {
             this.$element.val(this.val());
-            this._trigger('change', this.val());
+            this._trigger('change', this.value, this.options.name, pluginName);
         },
         _updateList: function() {
             if (this.value.length > this.$list.children().length) {
@@ -176,16 +176,23 @@
             this.$list.children().remove();
         },
         _trigger: function(eventType) {
+            var method_arguments = arguments.length > 1 ? Array.prototype.slice.call(arguments, 1) : undefined,
+                data;
+            if (method_arguments) {
+                data = method_arguments;
+                data.push(this);
+            } else {
+                data = this;
+            }
             // event
-            this.$element.trigger('asItemList::' + eventType, this);
-            this.$element.trigger(eventType + '.asItemList', this);
+            this.$element.trigger('asItemList::' + eventType, data);
+            this.$element.trigger(eventType + '.asItemList', data);
 
             // callback
             eventType = eventType.replace(/\b\w+\b/g, function(word) {
                 return word.substring(0, 1).toUpperCase() + word.substring(1);
             });
             var onFunction = 'on' + eventType;
-            var method_arguments = arguments.length > 1 ? Array.prototype.slice.call(arguments, 1) : undefined;
             if (typeof this.options[onFunction] === 'function') {
                 this.options[onFunction].apply(this, method_arguments);
             }
