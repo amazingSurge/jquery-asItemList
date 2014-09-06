@@ -176,10 +176,10 @@
         },
         _trigger: function(eventType) {
             var method_arguments = Array.prototype.slice.call(arguments, 1),
-                data = method_arguments.concat([this]);
+                data = [this].concat(method_arguments);
 
             // event
-            this.$select.trigger('asItemList::' + eventType, data);
+            this.$element.trigger('asItemList::' + eventType, data);
 
             // callback
             eventType = eventType.replace(/\b\w+\b/g, function(word) {
@@ -261,20 +261,13 @@
         },
         enable: function() {
             this.disabled = false;
-
-            // which element is up to your requirement
             this.$wrapper.removeClass(this.classes.disabled);
-            // here maybe have some events detached
         },
         disable: function() {
             this.disabled = true;
-            // which element is up to your requirement
-            // .disabled { pointer-events: none; } NO SUPPORT IE11 BELOW
             this.$wrapper.addClass(this.classes.disabled);
         },
         destory: function() {
-            // detached events first
-            // then remove all js generated html
             this.$element.data(pluginName, null);
             this._trigger('destory');
         }
