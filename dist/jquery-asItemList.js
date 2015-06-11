@@ -1,5 +1,5 @@
 /*! asItemList - v0.1.0 - 2014-09-06
-* https://github.com/amazingsurge/jquery-asItemList
+* https://github.com/amazingSurge/jquery-asItemList
 * Copyright (c) 2014 amazingSurge; Licensed MIT */
 (function(window, document, $, Sortable, undefined) {
     "use strict";
