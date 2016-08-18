@@ -2,15 +2,28 @@
   "name": "jquery-asItemList",
   "version": "0.1.0",
   "main": "dist/jquery-asItemList.js",
+  "copyright": "amazingSurge",
+  "license": "LGPL-3.0",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
+    "demo",
+    "libs",
+    "package.json",
+    "gulpfile.babel.js",
     "tests"
   ],
+  "homepage": "https://github.com/amazingSurge/jquery-asItemList",
+  "authors": [
+    "amazingSurge <amazingSurge@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
   "dependencies": {
-    "jquery": ">=1.11.0",
+    "jquery": ">=2.1.1",
     "fontAwesome": "git@github.com:FortAwesome/Font-Awesome.git",
     "Sortable": "git@github.com:RubaXa/Sortable.git#~0.1.8"
   }

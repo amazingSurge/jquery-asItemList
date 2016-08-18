@@ -1,186 +1,240 @@
+/**
+* jQuery asItemList
+* a jquery plugin
+* Compiled: Thu Aug 18 2016 15:38:23 GMT+0800 (CST)
+* @version v0.1.1
+* @link https://github.com/amazingSurge/jquery-asItemList
+* @copyright LGPL-3.0
+*/
 @font-face {
-  font-family: 'asFont';
-  src: url('../fonts/asFont.eot');
-  src: url('../fonts/asFont.eot') format('embedded-opentype'), url('../fonts/asFont.woff') format('woff'), url('../fonts/asFont.ttf') format('truetype'), url('../fonts/asFont.svg') format('svg');
-  font-weight: normal;
+  font-family: "asFont";
   font-style: normal;
+  font-weight: normal;
+
+  src: url("../fonts/asFont.eot");
+  src: url("../fonts/asFont.eot") format("embedded-opentype"), url("../fonts/asFont.woff") format("woff"), url("../fonts/asFont.ttf") format("truetype"), url("../fonts/asFont.svg") format("svg");
 }
-[class^="asIcon-"],
-[class*=" asIcon-"] {
-  font-family: 'asFont';
-  speak: none;
+
+[class^="asIcon-"], [class*=" asIcon-"] {
+  font-family: "asFont";
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
-  text-transform: none;
   line-height: 1;
-  /* Better Font Rendering =========== */
+  text-transform: none;
+
+  speak: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.asIcon-search:before {
+
+.asIcon-search::before {
   content: "\e600";
 }
-.asIcon-chevron-right:before {
+
+.asIcon-chevron-right::before {
   content: "\e601";
 }
-.asIcon-chevron-left:before {
+
+.asIcon-chevron-left::before {
   content: "\e602";
 }
-.asIcon-check:before {
+
+.asIcon-check::before {
   content: "\e603";
 }
-.asIcon-caret-down:before {
+
+.asIcon-caret-down::before {
   content: "\e604";
 }
-.asIcon-calendar:before {
+
+.asIcon-calendar::before {
   content: "\e606";
 }
-.asIcon-caret-up:before {
+
+.asIcon-caret-up::before {
   content: "\e605";
 }
-.asIcon-text_left:before {
+
+.asIcon-text_left::before {
   content: "\e608";
 }
-.asIcon-text_center:before {
+
+.asIcon-text_center::before {
   content: "\e609";
 }
-.asIcon-text_right:before {
+
+.asIcon-text_right::before {
   content: "\e60a";
 }
-.asIcon-unsorted:before {
+
+.asIcon-unsorted::before {
   content: "\e607";
 }
-.asIcon-text_lowercase:before {
+
+.asIcon-text_lowercase::before {
   content: "\e60d";
 }
-.asIcon-font_italy:before {
+
+.asIcon-font_italy::before {
   content: "\e60b";
 }
-.asIcon-text_uppercase:before {
+
+.asIcon-text_uppercase::before {
   content: "\e60c";
 }
-.asIcon-text_underline:before {
+
+.asIcon-text_underline::before {
   content: "\e60e";
 }
-.asIcon-text_linethrough:before {
+
+.asIcon-text_linethrough::before {
   content: "\e610";
 }
-.asIcon-text_capitalize:before {
+
+.asIcon-text_capitalize::before {
   content: "\e60f";
 }
-.asIcon-angle-up:before {
+
+.asIcon-angle-up::before {
   content: "\e611";
 }
-.asIcon-angle-down:before {
+
+.asIcon-angle-down::before {
   content: "\e612";
 }
-.asIcon-no-repeat:before {
+
+.asIcon-no-repeat::before {
   content: "\e613";
 }
-.asIcon-repeat:before {
+
+.asIcon-repeat::before {
   content: "\e614";
 }
-.asIcon-repeat-y:before {
+
+.asIcon-repeat-y::before {
   content: "\e616";
 }
-.asIcon-repeat-x:before {
+
+.asIcon-repeat-x::before {
   content: "\e615";
 }
-.asIcon-bg-top-left:before {
+
+.asIcon-bg-top-left::before {
   content: "\e617";
 }
-.asIcon-bg-top-center:before {
+
+.asIcon-bg-top-center::before {
   content: "\e618";
 }
-.asIcon-bg-top-right:before {
+
+.asIcon-bg-top-right::before {
   content: "\e619";
 }
-.asIcon-bg-center-left:before {
+
+.asIcon-bg-center-left::before {
   content: "\e61a";
 }
-.asIcon-bg-center-center:before {
+
+.asIcon-bg-center-center::before {
   content: "\e61b";
 }
-.asIcon-bg-center-right:before {
+
+.asIcon-bg-center-right::before {
   content: "\e61c";
 }
-.asIcon-bg-bottom-left:before {
+
+.asIcon-bg-bottom-left::before {
   content: "\e61d";
 }
-.asIcon-bg-bottom-center:before {
+
+.asIcon-bg-bottom-center::before {
   content: "\e61e";
 }
-.asIcon-bg-bottom-right:before {
+
+.asIcon-bg-bottom-right::before {
   content: "\e61f";
 }
-.asIcon-adapt-height:before {
+
+.asIcon-adapt-height::before {
   content: "\e620";
 }
-.asIcon-adapt-width:before {
+
+.asIcon-adapt-width::before {
   content: "\e621";
 }
-.asIcon-adapt-auto:before {
+
+.asIcon-adapt-auto::before {
   content: "\e622";
 }
-.asIcon-adapt-all:before {
+
+.asIcon-adapt-all::before {
   content: "\e623";
 }
-.asIcon-image:before {
+
+.asIcon-image::before {
   content: "\e624";
 }
-.asIcon-file:before {
+
+.asIcon-file::before {
   content: "\e625";
 }
-.asIcon-minus:before {
+
+.asIcon-minus::before {
   content: "\e626";
 }
-.asIcon-times:before {
+
+.asIcon-times::before {
   content: "\e627";
 }
-.asIcon-plus:before {
+
+.asIcon-plus::before {
   content: "\e628";
 }
-.asIcon-drag:before {
+
+.asIcon-drag::before {
   content: "\e629";
 }
+
 .asItemList-wrapper {
   position: relative;
-  background-color: #fff;
   width: 310px;
+  background-color: #fff;
 }
-.asItemList-addItem {
+
+.asItemList-additem {
   display: block;
   padding: 10px 0;
-  color: #687175;
+  font-family: "asFont";
   font-size: 14px;
-  font-family: 'asFont';
-  speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
-  text-transform: none;
   line-height: 1;
+  color: #687175;
+  text-transform: none;
   cursor: pointer;
-  /* Better Font Rendering =========== */
+
+  speak: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.asItemList-addItem > i {
+.asItemList-additem > i {
   margin-right: 10px;
-  color: #d0d8db;
   font-style: normal;
+  color: #d0d8db;
   vertical-align: middle;
 }
-.asItemList-addItem > i:before {
+.asItemList-additem > i::before {
   content: "\e628";
 }
-.asItemList-addItem:hover {
+.asItemList-additem:hover {
   text-decoration: none;
 }
+
 .asItemList-list {
-  margin: 6px 0 0;
   padding: 0;
+  margin: 6px 0 0;
   list-style: none;
 }
 .asItemList-list li {
@@ -199,22 +253,22 @@
   display: inline-block;
   width: 13%;
   height: 100%;
-  color: #aaa;
-  font-family: 'asFont';
+  font-family: "asFont";
   font-size: 16px;
-  speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
-  text-transform: none;
+  color: #aaa;
   text-align: center;
+  text-transform: none;
   vertical-align: middle;
   cursor: move;
-  /* Better Font Rendering =========== */
+
+  speak: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.asItemList-list-drag:before {
+.asItemList-list-drag::before {
   content: "\e629";
 }
 .asItemList-list-item {
@@ -225,8 +279,8 @@
 .asItemList-list-item > i {
   width: 32px;
   margin-right: 20px;
-  color: #9ea6a9;
   font-size: 32px;
+  color: #9ea6a9;
   text-align: center;
   vertical-align: middle;
 }
@@ -240,33 +294,36 @@
   z-index: 9;
   display: none;
   width: 13%;
-  color: #d0d8db;
-  font-family: 'asFont';
+  font-family: "asFont";
   font-size: 20px;
-  speak: none;
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
-  text-transform: none;
+  line-height: 60px;
+  color: #d0d8db;
   text-align: center;
   text-decoration: none;
-  line-height: 60px;
-  /* Better Font Rendering =========== */
+  text-transform: none;
+
+  speak: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-.asItemList-list-remove:before {
+.asItemList-list-remove::before {
   content: "\e627";
 }
+
 .asItemList-prompt {
   display: none;
   height: 50px;
   line-height: 50px;
   text-indent: 20px;
 }
+
 .asItemList_empty .asItemList-list {
   display: none !important;
 }
+
 .asItemList_empty .asItemList-prompt {
   display: block !important;
 }
