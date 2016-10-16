@@ -1,35 +1,30 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!doctype html>
+<html class="no-js">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title></title>
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-
-<link rel="stylesheet" href="css/normalize.css">
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/prism.css">
-<link rel="stylesheet" href="../dist/css/asItemList.css">
-<link rel="stylesheet" href="css/font-awesome.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title></title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/prism.css">
+	<link rel="stylesheet" href="../dist/css/asItemList.css">
+	<link rel="stylesheet" href="css/font-awesome.css">
 </head>
 <body>
+	<!--[if lt IE 8]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+	<![endif]-->
 	<div id="toc"></div>
-    <div class="container">
-        <div id="toc0"></div>    
-        <h1>jQuery.asItemList</h1>
-        <section>
-            <div id="toc1"></div>
-            <h2>Examples</h2>
-            <p>You can pass these options as key/value object to $.asItemList() method. </p>
-
-            <section>
-                <div id="toc2"></div>
-                <h3>Input</h3>
-                <pre class="has-example"><code class="language-markup">&lt;input&nbsp;type=&quot;text&quot;&nbsp;class=&quot;default&quot;&nbsp;value='[{&quot;icon&quot;:&nbsp;&quot;fa-user&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;User&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-cloud-upload&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Cloud-upload&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-search&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Search&quot;}]'&nbsp;name=&quot;default&quot;/&gt;
+	<div class="container">
+		<h1>jQuery.asItemList</h1>
+		<section>
+			<h2>Examples</h2>
+			<p>You can pass these options as key/value object to $.asItemList() method. </p>
+			<section>
+				<h3>Input</h3>
+				<pre class="has-example"><code class="language-markup">&lt;input&nbsp;type=&quot;text&quot;&nbsp;class=&quot;default&quot;&nbsp;value='[{&quot;icon&quot;:&nbsp;&quot;fa-user&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;User&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-cloud-upload&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Cloud-upload&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-search&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Search&quot;}]'&nbsp;name=&quot;default&quot;/&gt;
 &lt;script&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;$(document).ready(function(){
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('.default').asItemList({
@@ -53,7 +48,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;edit&nbsp;=&nbsp;'{&quot;icon&quot;:&nbsp;&quot;fa-heart&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Heart&quot;}',
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;=&nbsp;$('.default').val(),
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;=&nbsp;$(evt).data('index');
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edit&nbsp;=&nbsp;$.parseJSON(edit);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;=&nbsp;$.parseJSON(value);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value[index]&nbsp;=&nbsp;edit;
@@ -68,16 +62,14 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;});
 &lt;/script&gt;</code></pre>
-                <div class="example">
-                    <input type="text" class="default" value='[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}]' name="default"/>
-                    
-                    <button id="api-clear-click">clear</button>
-                </div>
-            </section>
-            <section>
-                <div id="toc3"></div>
-                <h3>Textarea</h3>
-                <pre class="has-example"><code class="language-markup">&lt;textarea&nbsp;class=&quot;textarea&quot;&gt;[{&quot;icon&quot;:&nbsp;&quot;fa-user&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;User&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-cloud-upload&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Cloud-upload&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-search&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Search&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-down&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-down&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-up&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-up&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-right&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-right&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-left&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-left&quot;}]&lt;/textarea&gt;
+				<div class="example">
+					<input type="text" class="default" value='[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}]' name="default" />
+					<button id="api-clear-click">clear</button>
+				</div>
+			</section>
+			<section>
+				<h3>Textarea</h3>
+				<pre class="has-example"><code class="language-markup">&lt;textarea&nbsp;class=&quot;textarea&quot;&gt;[{&quot;icon&quot;:&nbsp;&quot;fa-user&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;User&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-cloud-upload&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Cloud-upload&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-search&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Search&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-down&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-down&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-up&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-up&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-right&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-right&quot;},&nbsp;{&quot;icon&quot;:&nbsp;&quot;fa-caret-left&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;caret-left&quot;}]&lt;/textarea&gt;
 &lt;script&gt;
 &nbsp;&nbsp;&nbsp;&nbsp;$(document).ready(function(){
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$('.textarea').asItemList({
@@ -101,7 +93,6 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var&nbsp;edit&nbsp;=&nbsp;'{&quot;icon&quot;:&nbsp;&quot;fa-heart&quot;,&nbsp;&quot;title&quot;:&nbsp;&quot;Heart&quot;}',
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;=&nbsp;$('.textarea').val(),
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;=&nbsp;$(evt).data('index');
-
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;edit&nbsp;=&nbsp;$.parseJSON(edit);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value&nbsp;=&nbsp;$.parseJSON(value);
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value[index]&nbsp;=&nbsp;edit;
@@ -117,79 +108,87 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});
 &nbsp;&nbsp;&nbsp;&nbsp;});
 &lt;/script&gt;</code></pre>
-                <div class="example">
-                    <textarea class="textarea">[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}, {"icon": "fa-caret-down", "title": "caret-down"}, {"icon": "fa-caret-up", "title": "caret-up"}, {"icon": "fa-caret-right", "title": "caret-right"}, {"icon": "fa-caret-left", "title": "caret-left"}]</textarea>
-                    
-                    <button id="api-val2-click">getIcon</button>
-                </div>
-                <div class="example" id="api-val2-info"></div>
-            </section>
-        </section>
-    </div> 
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery.toc.min.js"></script>
-    <script src="js/prism.js"></script>
-    <script src="js/Sortable.min.js"></script>
-    <script src="../dist/jquery-asItemList.js"></script>
-    <script>
-        $(document).ready(function(){
-            (function(){
-                $('#toc').toc();
-            })();
-            $('.default').asItemList({
-                sortableID: 'default-list',
-                render: function(item) {
-                    return '<i class="fa ' + item.icon + '"></i>' +
-                            '<span>' + item.title + '</span>';
-                },
-                onAdd: function() {
-                    var value = [{"icon": "fa-heart", "title": "Heart"},{"icon": "fa-user", "title": "User"}];
-                    $('<button id="api-addItem-click">addItem</button>').prependTo($("#api-clear-click").parent());
-                    
-                    $('#api-addItem-click').click(function() {
-                        $('.default').asItemList('add', value);
-                        $('#api-addItem-click').remove();
-                    });
-                },
-                onEdit: function(index) {
-                    var edit = {"icon": "fa-heart", "title": "Heart"};
-
-                    $('.default').asItemList('update', index, edit);
-                }
-            });
-            
-            $('#api-clear-click').click(function() {
-                $('.default').asItemList('clear');
-                return false;
-            });
-            $('.textarea').asItemList({
-                sortableID: 'textarea-list',
-                render: function(item) {
-                    return '<i class="fa ' + item.icon + '"></i>' +
-                            '<span>' + item.title + '</span>';
-                },
-                onAdd: function() {
-                    var value = [{"icon": "fa-heart", "title": "Heart"}];
-                    $('<button id="api-addItem2-click">addItem</button>').prependTo($("#api-val2-click").parent());
-                    
-                    $('#api-addItem2-click').click(function() {
-                        $('.textarea').asItemList('add', value);
-                        $('#api-addItem2-click').remove();
-                    });
-                },
-                onEdit: function(index) {
-                    var edit = {"icon": "fa-heart", "title": "Heart"};
-  
-                    $('.textarea').asItemList('update', index, edit);
-                }
-            });
-
-            $('#api-val2-click').click(function() {
-                var html = '<div>The list is "' + $('.textarea').asItemList('val') + '"</div>';
-                $(html).prependTo($('#api-val2-info'));
-                return false;
-            });
-        });
-    </script>
+				<div class="example">
+					<textarea class="textarea">[{"icon": "fa-user", "title": "User"}, {"icon": "fa-cloud-upload", "title": "Cloud-upload"}, {"icon": "fa-search", "title": "Search"}, {"icon": "fa-caret-down", "title": "caret-down"}, {"icon": "fa-caret-up", "title": "caret-up"}, {"icon": "fa-caret-right", "title": "caret-right"}, {"icon": "fa-caret-left", "title": "caret-left"}]</textarea>
+					<button id="api-val2-click">getIcon</button>
+				</div>
+				<div class="example" id="api-val2-info"></div>
+			</section>
+		</section>
+	</div>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.toc.js"></script>
+	<script src="js/prism.js"></script>
+	<script src="js/Sortable.js"></script>
+	<script src="../dist/jquery-asItemList.js"></script>
+	<script>
+		$(document).ready(function() {
+			(function() {
+				$('#toc').toc();
+			})();
+			$('.default').asItemList({
+				sortableID: 'default-list',
+				render: function(item) {
+					return '<i class="fa ' + item.icon + '"></i>' +
+						'<span>' + item.title + '</span>';
+				},
+				onAdd: function() {
+					var value = [{
+						"icon": "fa-heart",
+						"title": "Heart"
+					}, {
+						"icon": "fa-user",
+						"title": "User"
+					}];
+					$('<button id="api-addItem-click">addItem</button>').prependTo($("#api-clear-click").parent());
+					$('#api-addItem-click').click(function() {
+						$('.default').asItemList('add', value);
+						$('#api-addItem-click').remove();
+					});
+				},
+				onEdit: function(index) {
+					var edit = {
+						"icon": "fa-heart",
+						"title": "Heart"
+					};
+					$('.default').asItemList('update', index, edit);
+				}
+			});
+			$('#api-clear-click').click(function() {
+				$('.default').asItemList('clear');
+				return false;
+			});
+			$('.textarea').asItemList({
+				sortableID: 'textarea-list',
+				render: function(item) {
+					return '<i class="fa ' + item.icon + '"></i>' +
+						'<span>' + item.title + '</span>';
+				},
+				onAdd: function() {
+					var value = [{
+						"icon": "fa-heart",
+						"title": "Heart"
+					}];
+					$('<button id="api-addItem2-click">addItem</button>').prependTo($("#api-val2-click").parent());
+					$('#api-addItem2-click').click(function() {
+						$('.textarea').asItemList('add', value);
+						$('#api-addItem2-click').remove();
+					});
+				},
+				onEdit: function(index) {
+					var edit = {
+						"icon": "fa-heart",
+						"title": "Heart"
+					};
+					$('.textarea').asItemList('update', index, edit);
+				}
+			});
+			$('#api-val2-click').click(function() {
+				var html = '<div>The list is "' + $('.textarea').asItemList('val') + '"</div>';
+				$(html).prependTo($('#api-val2-info'));
+				return false;
+			});
+		});
+	</script>
 </body>
 </html>

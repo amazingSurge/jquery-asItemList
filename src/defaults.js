@@ -1,9 +1,8 @@
 export default {
-  namespace: '',
+  namespace: 'asItemList',
   sortableID: 'asItemList-sortable',
   leng: 'en',
-  itemList() {
-    'use strict';
+  itemList: function() {
     return '<div class="namespace-container">' +
       '<a class="namespace-addItem">' +
       '<i></i>{{strings.addTitle}}' +
@@ -12,24 +11,20 @@ export default {
       '<div class="namespace-prompt">{{strings.prompt}}</div>' +
       '</div>';
   },
-  render(item) {
-    'use strict';
+  render: function(item) {
     return item;
   },
-  process(value) {
-    'use strict';
+  process: function(value) {
     if (value) {
       const string = JSON.stringify(value);
       if (string === '[]') {
         return '';
-      } else {
-        return string;
       }
+      return string;
     }
     return '';
   },
-  parse(value) {
-    'use strict';
+  parse: function(value) {
     if (value) {
       return $.parseJSON(value);
     }

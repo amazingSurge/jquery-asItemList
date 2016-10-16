@@ -1,33 +1,28 @@
 /**
-* jQuery asItemList
-* a jquery plugin
-* Compiled: Thu Aug 18 2016 15:40:40 GMT+0800 (CST)
-* @version v0.1.1
-* @link https://github.com/amazingSurge/jquery-asItemList
-* @copyright LGPL-3.0
+* jQuery asItemList v0.2.0
+* https://github.com/amazingSurge/jquery-asItemList
+*
+* Copyright (c) amazingSurge
+* Released under the LGPL-3.0 license
 */
 (function(global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(['exports', 'jQuery', 'Sortable'], factory);
+    define(['jquery', 'Sortable'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require('jQuery'), require('Sortable'));
+    factory(require('jquery'), require('Sortable'));
   } else {
     var mod = {
       exports: {}
     };
-    factory(mod.exports, global.jQuery, global.Sortable);
-    global.jqueryAsItemList = mod.exports;
+    factory(global.jQuery, global.Sortable);
+    global.jqueryAsItemListEs = mod.exports;
   }
 })(this,
 
-  function(exports, _jQuery, _Sortable) {
+  function(_jquery, _Sortable) {
     'use strict';
 
-    Object.defineProperty(exports, "__esModule", {
-      value: true
-    });
-
-    var _jQuery2 = _interopRequireDefault(_jQuery);
+    var _jquery2 = _interopRequireDefault(_jquery);
 
     var _Sortable2 = _interopRequireDefault(_Sortable);
 
@@ -36,6 +31,17 @@
         default: obj
       };
     }
+
+    var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ?
+
+      function(obj) {
+        return typeof obj;
+      }
+      :
+
+      function(obj) {
+        return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+      };
 
     function _classCallCheck(instance, Constructor) {
       if (!(instance instanceof Constructor)) {
@@ -67,11 +73,10 @@
       };
     }();
 
-    var defaults = {
-      namespace: '',
+    var DEFAULTS = {
+      namespace: 'asItemList',
       sortableID: 'asItemList-sortable',
       leng: 'en',
-
       itemList: function itemList() {
         return '<div class="namespace-container">' + '<a class="namespace-addItem">' + '<i></i>{{strings.addTitle}}' + '</a>' + '<ul class="namespace-list"></ul>' + '<div class="namespace-prompt">{{strings.prompt}}</div>' + '</div>';
       },
@@ -85,10 +90,9 @@
           if (string === '[]') {
 
             return '';
-          } else {
-
-            return string;
           }
+
+          return string;
         }
 
         return '';
@@ -101,7 +105,6 @@
 
         return null;
       },
-
       // callback
       onInit: null,
       onReady: null,
@@ -110,29 +113,27 @@
       onAfterFill: null
     };
 
-    var pluginName = 'asItemList';
-
-    defaults.namespace = pluginName;
+    var NAMESPACE$1 = 'asItemList';
+    var STRINGS = {};
 
     var asItemList = function() {
       function asItemList(element, options) {
         _classCallCheck(this, asItemList);
 
         this.element = element;
-        this.$element = (0, _jQuery2.default)(element);
+        this.$element = (0, _jquery2.default)(element);
 
-        this.options = _jQuery2.default.extend({}, defaults, options, this.$element.data());
+        this.options = _jquery2.default.extend({}, DEFAULTS, options, this.$element.data());
 
         // load lang strings
 
-        if (typeof asItemList.Strings[this.options.lang] === 'undefined') {
+        if (typeof STRINGS[this.options.lang] === 'undefined') {
           this.lang = 'en';
         } else {
           this.lang = this.options.lang;
         }
-        this.strings = _jQuery2.default.extend({}, asItemList.Strings[this.lang], this.options.strings);
+        this.strings = _jquery2.default.extend({}, STRINGS[this.lang], this.options.strings);
 
-        this._plugin = pluginName;
         this.namespace = this.options.namespace;
 
         this.classes = {
@@ -148,7 +149,7 @@
         this.$element.wrap('<div class="' + this.classes.wrapper + '"></div>');
         this.$wrapper = this.$element.parent();
 
-        this.$itemList = (0, _jQuery2.default)(this.options.itemList().replace(/namespace/g, this.namespace).replace(/\{\{strings.addTitle\}\}/g, this.strings.addTitle).replace(/\{\{strings.prompt\}\}/g, this.strings.prompt));
+        this.$itemList = (0, _jquery2.default)(this.options.itemList().replace(/namespace/g, this.namespace).replace(/\{\{strings.addTitle\}\}/g, this.strings.addTitle).replace(/\{\{strings.prompt\}\}/g, this.strings.prompt));
         this.$addItem = this.$itemList.find('.' + this.namespace + '-addItem');
         this.$prompt = this.$itemList.find('.' + this.namespace + '-prompt');
         this.$list = this.$itemList.find('.' + this.namespace + '-list');
@@ -165,7 +166,7 @@
       _createClass(asItemList, [{
         key: 'init',
         value: function init() {
-          var self = this;
+          var that = this;
 
           // Hide source element
           this.$element.hide();
@@ -179,49 +180,53 @@
           this.$addItem.on('click',
 
             function() {
-              self._trigger('add');
+              that._trigger('add');
             }
           );
 
           var list = document.getElementById(this.options.sortableID);
-          this.$list.on('click', 'li', _jQuery2.default.proxy(
+          this.$list.on('click', 'li', _jquery2.default.proxy(
 
             function(e) {
-              this.editIndex = (0, _jQuery2.default)(e.currentTarget).index();
+              this.editIndex = (0, _jquery2.default)(e.currentTarget).index();
               this._trigger('edit', this.editIndex);
             }
-            , this)).on('mouseenter', 'li', _jQuery2.default.proxy(
+            , this)).on('mouseenter', 'li', _jquery2.default.proxy(
 
             function(e) {
-              (0, _jQuery2.default)(e.currentTarget).addClass(this.classes.hover);
+              (0, _jquery2.default)(e.currentTarget).addClass(this.classes.hover);
             }
-            , this)).on('mouseleave', 'li', _jQuery2.default.proxy(
+            , this)).on('mouseleave', 'li', _jquery2.default.proxy(
 
             function(e) {
-              (0, _jQuery2.default)(e.currentTarget).removeClass(this.classes.hover);
+              (0, _jquery2.default)(e.currentTarget).removeClass(this.classes.hover);
             }
-            , this)).on('mouseenter', '.' + this.namespace + '-list-drag', _jQuery2.default.proxy(
+            , this)).on('mouseenter', '.' + this.namespace + '-list-drag', _jquery2.default.proxy(
 
             function(e) {
-              this.sortIndex = (0, _jQuery2.default)(e.currentTarget).parent().index();
+              this.sortIndex = (0, _jquery2.default)(e.currentTarget).parent().index();
               this.sort = new _Sortable2.default(list, {
                 onUpdate: function onUpdate(evt) {
-                  var value = self.value.splice(self.sortIndex, 1);
-                  self.value.splice((0, _jQuery2.default)(evt.item).index(), 0, value[0]);
-                  self.$element.val(self.options.process(self.value));
-                  self.sort.destroy();
+                  var value = that.value.splice(that.sortIndex, 1);
+                  that.value.splice((0, _jquery2.default)(evt.item).index(), 0, value[0]);
+                  that.$element.val(that.options.process(that.value));
+                // if(that.sort) {
+                //   that.sort.destroy();
+                // }
                 }
               });
             }
-            , this)).on('mouseleave', '.' + this.namespace + '-list-drag', _jQuery2.default.proxy(
+            , this)).on('mouseleave', '.' + this.namespace + '-list-drag', _jquery2.default.proxy(
 
             function() {
-              this.sort.destroy();
+              // if(this.sort) {
+              //   this.sort.destroy();
+              // }
             }
-            , this)).on('click', '.' + this.namespace + '-list-remove', _jQuery2.default.proxy(
+            , this)).on('click', '.' + this.namespace + '-list-remove', _jquery2.default.proxy(
 
             function(e) {
-              this.indexed = (0, _jQuery2.default)(e.currentTarget).parent().index();
+              this.indexed = (0, _jquery2.default)(e.currentTarget).parent().index();
               this.remove(this.indexed);
 
               return false;
@@ -232,7 +237,7 @@
         key: '_update',
         value: function _update() {
           this.$element.val(this.val());
-          this._trigger('change', this.value, this.options.name, pluginName);
+          this._trigger('change', [this.value]);
         }
       }, {
         key: '_updateList',
@@ -262,7 +267,7 @@
 
           for (var i = this.$list.children().length, item; i < this.value.length; i++) {
             item = this.value[i];
-            (0, _jQuery2.default)('<li/>', {
+            (0, _jquery2.default)('<li/>', {
               html: this._editList(item)
             }).appendTo(this.$list);
           }
@@ -280,11 +285,16 @@
       }, {
         key: '_trigger',
         value: function _trigger(eventType) {
-          var method_arguments = Array.prototype.slice.call(arguments, 1),
-            data = [this].concat(method_arguments);
+          var _ref;
+
+          for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            params[_key - 1] = arguments[_key];
+          }
+
+          var data = (_ref = [this]).concat.apply(_ref, params);
 
           // event
-          this.$element.trigger('asItemList::' + eventType, data);
+          this.$element.trigger(NAMESPACE$1 + '::' + eventType, data);
 
           // callback
           eventType = eventType.replace(/\b\w+\b/g,
@@ -296,7 +306,9 @@
           var onFunction = 'on' + eventType;
 
           if (typeof this.options[onFunction] === 'function') {
-            this.options[onFunction].apply(this, method_arguments);
+            var _options$onFunction;
+
+            (_options$onFunction = this.options[onFunction]).apply.apply(_options$onFunction, [this].concat(params));
           }
         }
       }, {
@@ -307,10 +319,10 @@
             return this.options.process(this.value);
           }
 
-          var value_obj = this.options.parse(value);
+          var valueObj = this.options.parse(value);
 
-          if (value_obj) {
-            this.set(value_obj);
+          if (valueObj) {
+            this.set(valueObj);
           } else {
             this.clear();
           }
@@ -318,7 +330,7 @@
       }, {
         key: 'set',
         value: function set(value, update) {
-          if (_jQuery2.default.isArray(value)) {
+          if (_jquery2.default.isArray(value)) {
             this.value = value;
           } else {
             this.value = [];
@@ -358,7 +370,10 @@
         key: 'add',
         value: function add(item, update) {
           for (var key in item) {
-            this.value.push(item[key]);
+
+            if ({}.hasOwnProperty.call(item, key)) {
+              this.value.push(item[key]);
+            }
           }
 
           this._updateList();
@@ -388,93 +403,114 @@
         value: function enable() {
           this.disabled = false;
           this.$wrapper.removeClass(this.classes.disabled);
+          this._trigger('enable');
         }
       }, {
         key: 'disable',
         value: function disable() {
           this.disabled = true;
           this.$wrapper.addClass(this.classes.disabled);
+          this._trigger('disable');
         }
       }, {
         key: 'destory',
         value: function destory() {
-          this.$element.data(pluginName, null);
+          this.$element.data(NAMESPACE$1, null);
           this._trigger('destory');
         }
       }], [{
-        key: '_jQueryInterface',
-        value: function _jQueryInterface(options) {
-          for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            args[_key - 1] = arguments[_key];
-          }
-
-          if (typeof options === 'string') {
-
-            if (/^\_/.test(options)) {
-
-              return false;
-            } else if (/^(get)$/.test(options) || options === 'val' && args.length === 0) {
-              var api = this.first().data(pluginName);
-
-              if (api && typeof api[options] === 'function') {
-
-                return api[options].apply(api, args);
-              }
-            } else {
-
-              return this.each(
-
-                function() {
-                  var api = _jQuery2.default.data(this, pluginName);
-
-                  if (api && typeof api[options] === 'function') {
-                    api[options].apply(api, args);
-                  }
-                }
-              );
-            }
-          } else {
-
-            return this.each(
-
-              function() {
-                if (!_jQuery2.default.data(this, pluginName)) {
-                  _jQuery2.default.data(this, pluginName, new asItemList(this, options));
-                }
-              }
-            );
-          }
+        key: 'localize',
+        value: function localize(lang, label) {
+          STRINGS[lang] = label;
+        }
+      }, {
+        key: 'setDefaults',
+        value: function setDefaults(options) {
+          _jquery2.default.extend(DEFAULTS, _jquery2.default.isPlainObject(options) && options);
         }
       }]);
 
       return asItemList;
     }();
 
-    asItemList.defaults = defaults;
-
-    asItemList.Strings = {};
-
-    asItemList.localize = function(lang, label) {
-      asItemList.Strings[lang] = label;
-    }
-    ;
-
     asItemList.localize('en', {
       addTitle: 'Add new list',
       prompt: 'There is no item'
     });
 
-    _jQuery2.default.fn[pluginName] = asItemList._jQueryInterface;
-    _jQuery2.default.fn[pluginName].constructor = asItemList;
-    _jQuery2.default.fn[pluginName].noConflict = function() {
-      'use strict';
+    var info = {
+      version: '0.2.0'
+    };
 
-      _jQuery2.default.fn[pluginName] = window.JQUERY_NO_CONFLICT;
+    var NAMESPACE = 'asItemList';
+    var OtherAsItemList = _jquery2.default.fn.asItemList;
 
-      return asItemList._jQueryInterface;
-    }
-    ;
+    var jQueryAsItemList = function jQueryAsItemList(options) {
+      var _this = this;
 
-    exports.default = asItemList;
+      for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+
+      if (typeof options === 'string') {
+        var _ret = function() {
+          var method = options;
+
+          if (/^_/.test(method)) {
+
+            return {
+              v: false
+            };
+          } else if (/^(get|val)/.test(method)) {
+            var instance = _this.first().data(NAMESPACE);
+
+            if (instance && typeof instance[method] === 'function') {
+
+              return {
+                v: instance[method].apply(instance, args)
+              };
+            }
+          } else {
+
+            return {
+              v: _this.each(
+
+                function() {
+                  var instance = _jquery2.default.data(this, NAMESPACE);
+
+                  if (instance && typeof instance[method] === 'function') {
+                    instance[method].apply(instance, args);
+                  }
+                }
+              )
+            };
+          }
+        }();
+
+        if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object")
+
+          return _ret.v;
+      }
+
+      return this.each(
+
+        function() {
+          if (!(0, _jquery2.default)(this).data(NAMESPACE)) {
+            (0, _jquery2.default)(this).data(NAMESPACE, new asItemList(this, options));
+          }
+        }
+      );
+    };
+
+    _jquery2.default.fn.asItemList = jQueryAsItemList;
+
+    _jquery2.default.asItemList = _jquery2.default.extend({
+      setDefaults: asItemList.setDefaults,
+      noConflict: function noConflict() {
+        _jquery2.default.fn.asItemList = OtherAsItemList;
+
+        return jQueryAsItemList;
+      }
+    }, info);
   }
 );
