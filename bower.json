@@ -1,6 +1,6 @@
 {
   "name": "jquery-asItemList",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A jquery plugin that do amazing things.",
   "main": "dist/jquery-asItemList.js",
   "copyright": "amazingSurge",
@@ -29,7 +29,6 @@
   ],
   "dependencies": {
     "jquery": ">=2.2.0",
-    "fontAwesome": "git@github.com:FortAwesome/Font-Awesome.git",
-    "Sortable": "git@github.com:RubaXa/Sortable.git#~0.1.8"
+    "sortablejs": "^1.4.2"
   }
 }

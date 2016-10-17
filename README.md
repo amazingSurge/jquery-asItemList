@@ -46,6 +46,11 @@ bower install jquery-asItemList --save
 npm install jquery-asItemList --save
 ```
 
+#### Install From Yarn
+```sh
+yarn add jquery-asItemList
+```
+
 #### Build From Source
 If you want build from source:
 
@@ -142,11 +147,11 @@ You can also save the instances to variable for further use.
 
 ```javascript
 // call directly
-$().asItemList('destory');
+$().asItemList('destroy');
 
 // or
 var api = $().data('asItemList');
-api.destory();
+api.destroy();
 ```
 
 #### val(value)

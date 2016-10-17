@@ -1,5 +1,5 @@
 /**
-* jQuery asItemList v0.2.0
+* jQuery asItemList v0.2.1
 * https://github.com/amazingSurge/jquery-asItemList
 *
 * Copyright (c) amazingSurge
@@ -237,7 +237,7 @@
         key: '_update',
         value: function _update() {
           this.$element.val(this.val());
-          this._trigger('change', [this.value]);
+          this._trigger('change', this.value);
         }
       }, {
         key: '_updateList',
@@ -285,13 +285,11 @@
       }, {
         key: '_trigger',
         value: function _trigger(eventType) {
-          var _ref;
-
           for (var _len = arguments.length, params = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
             params[_key - 1] = arguments[_key];
           }
 
-          var data = (_ref = [this]).concat.apply(_ref, params);
+          var data = [this].concat(params);
 
           // event
           this.$element.trigger(NAMESPACE$1 + '::' + eventType, data);
@@ -306,9 +304,7 @@
           var onFunction = 'on' + eventType;
 
           if (typeof this.options[onFunction] === 'function') {
-            var _options$onFunction;
-
-            (_options$onFunction = this.options[onFunction]).apply.apply(_options$onFunction, [this].concat(params));
+            this.options[onFunction].apply(this, params);
           }
         }
       }, {
@@ -413,10 +409,10 @@
           this._trigger('disable');
         }
       }, {
-        key: 'destory',
-        value: function destory() {
+        key: 'destroy',
+        value: function destroy() {
           this.$element.data(NAMESPACE$1, null);
-          this._trigger('destory');
+          this._trigger('destroy');
         }
       }], [{
         key: 'localize',
@@ -439,7 +435,7 @@
     });
 
     var info = {
-      version: '0.2.0'
+      version: '0.2.1'
     };
 
     var NAMESPACE = 'asItemList';

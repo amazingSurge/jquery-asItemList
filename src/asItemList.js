@@ -99,7 +99,7 @@ class asItemList {
 
   _update() {
     this.$element.val(this.val());
-    this._trigger('change', [this.value]);
+    this._trigger('change', this.value);
   }
 
   _updateList() {
@@ -138,7 +138,7 @@ class asItemList {
   }
 
   _trigger(eventType, ...params) {
-    let data = [this].concat(...params);
+    let data = [this].concat(params);
 
     // event
     this.$element.trigger(`${NAMESPACE}::${eventType}`, data);
@@ -150,7 +150,7 @@ class asItemList {
     let onFunction = `on${eventType}`;
 
     if (typeof this.options[onFunction] === 'function') {
-      this.options[onFunction].apply(this, ...params);
+      this.options[onFunction].apply(this, params);
     }
   }
 
@@ -203,6 +203,7 @@ class asItemList {
       this._update();
     }
   }
+
   add(item, update) {
     for (const key in item) {
       if ({}.hasOwnProperty.call(item, key)) {
@@ -216,6 +217,7 @@ class asItemList {
       this._update();
     }
   }
+
   update(index, item, update) {
     this.value[index] = item;
 
@@ -242,9 +244,9 @@ class asItemList {
     this._trigger('disable');
   }
 
-  destory() {
+  destroy() {
     this.$element.data(NAMESPACE, null);
-    this._trigger('destory');
+    this._trigger('destroy');
   }
 
   static localize(lang, label) {
